@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>!
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>KRIPTOGRAFI</h2> 
+    proses enskripsi<br>
+    mengubah plaintext menjadi chipertext<br>
+    <h2></h2>
+    <h2>Input Matriks Plaintext</h2>
+    <form id="matrixAForm">
+      <!-- Input for Matrix A -->
+      <label for="matrixA">Matriks :</label>
+      <table id="matrixATable"></table>
+  
+      <button type="button" onclick="createMatrix('matrixA')">Input Matriks</button>
+    </form>
+  
+    <h2>Input Matriks Kunci</h2>
+    <form id="matrixBForm">
+      <!-- Input for Matrix B -->
+      <label for="matrixB">Matriks :</label>
+      <table id="matrixBTable"></table>
+  
+      <button type="button" onclick="createMatrix('matrixB')">Input Matriks</button>
+    </form>
+  <br>
+    <button type="button" onclick="multiplyMatrices()">HITUNG</button>
+  
+    <h2>Chipertext</h2>
+    <div id="result"></div>
+  
+    <script>
+      function createMatrix(matrixId) {
+        var rows = 3;
+        var cols = 3;
+  
+        var matrixForm = document.getElementById(matrixId + "Form");
+        var matrixTable = document.getElementById(matrixId + "Table");
+  
+        matrixTable.innerHTML = ""; // Clear previous content
+  
+        for (var i = 0; i < rows; i++) {
+          var row = document.createElement("tr");
+  
+          for (var j = 0; j < cols; j++) {
+            var cell = document.createElement("td");
+            var input = document.createElement("input");
+            input.type = "number";
+            input.name = matrixId + "[" + i + "][" + j + "]";
+            cell.appendChild(input);
+            row.appendChild(cell);
+          }
+  
+          matrixTable.appendChild(row);
+        }
+      }
+  
+      function multiplyMatrices() {
+        var matrixA = getMatrixValues("matrixA");
+        var matrixB = getMatrixValues("matrixB");
+  
+        var resultContainer = document.getElementById("result");
+        resultContainer.innerHTML = "";
+  
+        if (matrixA && matrixB) {
+          // Multiply matrix A with matrix B
+          var resultMatrix = multiply(matrixA, matrixB);
+  
+          // Display the result
+          var resultTable = document.createElement("table");
+          for (var i = 0; i < resultMatrix.length; i++) {
+            var row = document.createElement("tr");
+            for (var j = 0; j < resultMatrix[0].length; j++) {
+              var cell = document.createElement("td");
+              cell.textContent = resultMatrix[i][j];
+              row.appendChild(cell);
+            }
+            resultTable.appendChild(row);
+          }
+          resultContainer.appendChild(resultTable);
+        }
+      }
+  
+      function getMatrixValues(matrixId) {
+        var matrix = [];
+        for (var i = 0; i < 3; i++) {
+          matrix.push([]);
+          for (var j = 0; j < 3; j++) {
+            var inputName = matrixId + "[" + i + "][" + j + "]";
+            var inputValue = parseFloat(document.getElementsByName(inputName)[0].value);
+            if (isNaN(inputValue)) {
+              alert("Harap isi semua nilai matriks.");
+              return null;
+            }
+            matrix[i].push(inputValue);
+          }
+        }
+        return matrix;
+      }
+  
+      function multiply(matrixA, matrixB) {
+        var result = [];
+        for (var i = 0; i < matrixA.length; i++) {
+          result[i] = [];
+          for (var j = 0; j < matrixB[0].length; j++) {
+            result[i][j] = 0;
+            for (var k = 0; k < matrixB.length; k++) {
+              result[i][j] += matrixA[i][k] * matrixB[k][j];
+            }
+          }
+        }
+        return result;
+      }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>KRIPTOGRAFI</h2> 
+    proses deskripsi<br>
+    mengubah chipertext menjadi plaintext<br>
+    <h2></h2>
+    <h2>Input Matriks Chipertext</h2>
+    <form id="matrixAForm">
+      <!-- Input for Matrix A -->
+      <label for="matrixA">Matriks :</label>
+      <table id="matrixATable"></table>
+  
+      <button type="button" onclick="createMatrix('matrixA')">Input Matriks</button>
+    </form>
+  
+    <h2>Input Matriks Kunci</h2>
+    <form id="matrixBForm">
+      <!-- Input for Matrix B -->
+      <label for="matrixB">Matriks :</label>
+      <table id="matrixBTable"></table>
+  
+      <button type="button" onclick="createMatrix('matrixB')">Input Matriks</button>
+    </form>
+  <br>
+    <button type="button" onclick="calculateResult()">HITUNG</button>
+  <h2></h2>
+    <h2>Plaintext</h2>
+    <div id="result"></div>
+  
+    <script>
+      function createMatrix(matrixId) {
+        var rows = 3;
+        var cols = 3;
+  
+        var matrixForm = document.getElementById(matrixId + "Form");
+        var matrixTable = document.getElementById(matrixId + "Table");
+  
+        matrixTable.innerHTML = ""; // Clear previous content
+  
+        for (var i = 0; i < rows; i++) {
+          var row = document.createElement("tr");
+  
+          for (var j = 0; j < cols; j++) {
+            var cell = document.createElement("td");
+            var input = document.createElement("input");
+            input.type = "number";
+            input.name = matrixId + "[" + i + "][" + j + "]";
+            cell.appendChild(input);
+            row.appendChild(cell);
+          }
+  
+          matrixTable.appendChild(row);
+        }
+      }
+  
+      function calculateResult() {
+        var matrixA = getMatrixValues("matrixA");
+        var matrixB = getMatrixValues("matrixB");
+  
+        var resultContainer = document.getElementById("result");
+        resultContainer.innerHTML = "";
+  
+        if (matrixA && matrixB) {
+          // Calculate the inverse of matrix B
+          var inverseB = numeric.inv(matrixB);
+  
+          // Multiply matrix A with the inverse of matrix B
+          var resultMatrix = numeric.dot(matrixA, inverseB);
+  
+          // Display the result
+          var resultTable = document.createElement("table");
+          for (var i = 0; i < resultMatrix.length; i++) {
+            var row = document.createElement("tr");
+            for (var j = 0; j < resultMatrix[0].length; j++) {
+              var cell = document.createElement("td");
+              cell.textContent = resultMatrix[i][j].toPrecision(6);
+              row.appendChild(cell);
+            }
+            resultTable.appendChild(row);
+          }
+          resultContainer.appendChild(resultTable);
+        }
+      }
+  
+      function getMatrixValues(matrixId) {
+        var matrix = [];
+        for (var i = 0; i < 3; i++) {
+          matrix.push([]);
+          for (var j = 0; j < 3; j++) {
+            var inputName = matrixId + "[" + i + "][" + j + "]";
+            var inputValue = parseFloat(document.getElementsByName(inputName)[0].value);
+            if (isNaN(inputValue)) {
+              alert("Harap isi semua nilai matriks.");
+              return null;
+            }
+            matrix[i].push(inputValue);
+          }
+        }
+        return matrix;
+      }
+    </script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+</body>
+</html>
+</body>
+</html>
